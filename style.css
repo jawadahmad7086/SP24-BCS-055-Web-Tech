@@ -1,0 +1,147 @@
+/* RESET & FONTS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background-color: #fff;
+  overflow-x: hidden;
+}
+
+.logo h1 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 26px;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -1.5px;
+  color: #111;
+  cursor: pointer;
+  user-select: none;
+  margin: 0;
+}
+
+.logo h1:hover {
+  opacity: 0.7;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+}
+.nav-links {
+  display: flex;
+  list-style: none;
+}
+.nav-links li a {
+  text-decoration: none;
+  color: #111;
+  font-weight: 600;
+  margin: 0 1rem;
+}
+
+.hero {
+  text-align: center;
+  padding: 0 3rem;
+}
+.hero-image img {
+  width: 100%;
+  height: 70vh;
+  object-fit: cover;
+}
+.hero-text {
+  padding: 2rem 0;
+}
+.hero-text h1 {
+  font-size: 4rem;
+  font-weight: 900;
+  letter-spacing: -2px;
+}
+.btn {
+  background: #111;
+  color: #fff;
+  padding: 10px 25px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 3rem;
+}
+.card img {
+  width: 100%;
+  background: #f6f6f6;
+}
+.card-info {
+  padding: 1rem 0;
+}
+
+.footer {
+  background-color: #111; /* Nike's signature dark background */
+  color: #fff;
+  padding: 40px 3rem 20px;
+  margin-top: 50px;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 30px;
+}
+
+.footer-col h4 {
+  font-size: 12px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.footer-col ul {
+  list-style: none;
+}
+
+.footer-col ul li {
+  margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+  color: #7e7e7e; /* Muted grey for sub-links */
+  text-decoration: none;
+  font-size: 12px;
+  transition: color 0.3s;
+}
+
+.footer-col ul li a:hover {
+  color: #fff;
+}
+
+.footer-bold-links li a {
+  color: #fff !important;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  font-size: 11px;
+  color: #7e7e7e;
+}
+
+.bottom-links a {
+  color: #7e7e7e;
+  text-decoration: none;
+  margin-left: 15px;
+}
