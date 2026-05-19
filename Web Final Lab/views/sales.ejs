@@ -1,0 +1,221 @@
+<div class="sales-dashboard-container">
+  <div class="dashboard-header">
+    <h2>SALES DASHBOARD</h2>
+    <p>Track your business growth and order metrics in real-time.</p>
+    <div class="live-indicator">
+      <span class="pulse-dot"></span>
+      <span>Live Polling Active (Updates every 10s)</span>
+    </div>
+  </div>
+
+  <div class="metrics-grid">
+    <!-- Revenue Card -->
+    <div class="metric-card revenue-card">
+      <div class="card-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+      </div>
+      <div class="card-details">
+        <h3>Total Revenue</h3>
+        <p id="total-revenue" class="metric-value">$<%= totalRevenue.toFixed(2) %></p>
+      </div>
+    </div>
+
+    <!-- Orders Card -->
+    <div class="metric-card orders-card">
+      <div class="card-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+      </div>
+      <div class="card-details">
+        <h3>Total Orders</h3>
+        <p id="total-orders" class="metric-value"><%= totalOrders %></p>
+      </div>
+    </div>
+
+    <!-- Top Product Card -->
+    <div class="metric-card top-product-card">
+      <div class="card-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trending-up"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+      </div>
+      <div class="card-details">
+        <h3>Top Product</h3>
+        <p id="top-product-name" class="metric-value font-sm"><%= topProduct.name %></p>
+        <span class="subtext"><strong id="top-product-qty"><%= topProduct.quantity %></strong> units sold</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .sales-dashboard-container {
+    padding: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .dashboard-header {
+    margin-bottom: 3rem;
+  }
+
+  .dashboard-header h2 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    color: #111;
+    margin-bottom: 0.5rem;
+  }
+
+  .dashboard-header p {
+    color: #666;
+    font-size: 1.1rem;
+  }
+
+  .live-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 1rem;
+    padding: 6px 12px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #22c55e;
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(0.9);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.3);
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(0.9);
+      opacity: 1;
+    }
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .metric-card {
+    background: #ffffff;
+    border: 1px solid #eaeaea;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .metric-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.05);
+    border-color: #111;
+  }
+
+  .card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f6f6f6;
+    color: #111;
+    flex-shrink: 0;
+  }
+
+  .card-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .card-details {
+    flex-grow: 1;
+    min-width: 0; /* Prevents overflow of long product names */
+  }
+
+  .card-details h3 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  .metric-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #111;
+    letter-spacing: -1px;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .metric-value.font-sm {
+    font-size: 1.4rem;
+    white-space: normal;
+  }
+
+  .subtext {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 4px;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .sales-dashboard-container {
+      padding: 1.5rem;
+    }
+    .metrics-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  $(document).ready(function() {
+    function updateSalesData() {
+      $.getJSON('/api/sales-data', function(data) {
+        // Smoothly update metrics
+        if (data.totalRevenue !== undefined) {
+          $('#total-revenue').text('$' + parseFloat(data.totalRevenue).toFixed(2));
+        }
+        if (data.totalOrders !== undefined) {
+          $('#total-orders').text(data.totalOrders);
+        }
+        if (data.topProduct) {
+          $('#top-product-name').text(data.topProduct.name);
+          $('#top-product-qty').text(data.topProduct.quantity);
+        }
+      }).fail(function(err) {
+        console.error('Error fetching sales updates:', err);
+      });
+    }
+
+    // Poll every 10 seconds (10000ms)
+    setInterval(updateSalesData, 10000);
+  });
+</script>

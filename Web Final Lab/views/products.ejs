@@ -1,0 +1,106 @@
+<main class="products-page">
+  <aside class="sidebar-filters">
+    <h2>Filters</h2>
+    <form action="/products" method="GET" class="filter-form">
+      <div class="filter-group">
+        <label for="search">Search</label>
+        <input type="text" id="search" name="search" value="<%= query.search || '' %>" placeholder="Product name...">
+      </div>
+      
+      <div class="filter-group">
+        <label for="category">Category</label>
+        <select id="category" name="category">
+          <option value="">All Categories</option>
+          <option value="Electronics" <%= query.category === 'Electronics' ? 'selected' : '' %>>Electronics</option>
+          <option value="Fashion" <%= query.category === 'Fashion' ? 'selected' : '' %>>Fashion</option>
+          <option value="Home" <%= query.category === 'Home' ? 'selected' : '' %>>Home</option>
+          <option value="Sports" <%= query.category === 'Sports' ? 'selected' : '' %>>Sports</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Price Range</label>
+        <div class="price-inputs">
+          <input type="number" name="minPrice" value="<%= query.minPrice || '' %>" placeholder="Min" min="0">
+          <span>-</span>
+          <input type="number" name="maxPrice" value="<%= query.maxPrice || '' %>" placeholder="Max" min="0">
+        </div>
+      </div>
+
+      <button type="submit" class="btn filter-btn">Apply Filters</button>
+      <a href="/products" class="btn clear-btn">Clear</a>
+    </form>
+  </aside>
+
+  <section class="catalog">
+    <h2 style="margin-bottom: 2rem; font-size: 2rem; font-weight: 900; letter-spacing: -1px;">CATALOG</h2>
+    
+    <% if (products.length === 0) { %>
+      <p>No products found matching your criteria.</p>
+    <% } else { %>
+      <div class="products db-products">
+        <% products.forEach(function(product) { %>
+          <div class="card">
+            <img src="<%= product.image %>" alt="<%= product.name %>">
+            <div class="card-info">
+              <h3><%= product.name.substring(0, 30) %></h3>
+              <p><%= product.category.toUpperCase() %></p>
+              <strong>$<%= product.price %></strong>
+              <button class="db-quick-view-btn" data-id="<%= product._id %>" data-name="<%= product.name %>" data-desc="<%= product.description %>" data-price="<%= product.price %>" data-cat="<%= product.category %>" data-img="<%= product.image %>" data-rate="<%= product.rating.rate %>" data-count="<%= product.rating.count %>">Quick View</button>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+
+      <!-- Pagination Controls -->
+      <% if (totalPages > 1) { %>
+        <div class="pagination">
+          <% if (currentPage > 1) { %>
+            <a href="/products?page=<%= currentPage - 1 %>&search=<%= query.search || '' %>&category=<%= query.category || '' %>&minPrice=<%= query.minPrice || '' %>&maxPrice=<%= query.maxPrice || '' %>" class="page-link">&laquo; Prev</a>
+          <% } %>
+          
+          <% for(let i = 1; i <= totalPages; i++) { %>
+            <a href="/products?page=<%= i %>&search=<%= query.search || '' %>&category=<%= query.category || '' %>&minPrice=<%= query.minPrice || '' %>&maxPrice=<%= query.maxPrice || '' %>" class="page-link <%= currentPage === i ? 'active' : '' %>"><%= i %></a>
+          <% } %>
+          
+          <% if (currentPage < totalPages) { %>
+            <a href="/products?page=<%= currentPage + 1 %>&search=<%= query.search || '' %>&category=<%= query.category || '' %>&minPrice=<%= query.minPrice || '' %>&maxPrice=<%= query.maxPrice || '' %>" class="page-link">Next &raquo;</a>
+          <% } %>
+        </div>
+      <% } %>
+    <% } %>
+  </section>
+</main>
+
+<div id="dbProductModal" class="modal">
+  <div class="modal-content">
+    <span class="close-db-modal">&times;</span>
+    <div id="db-modal-body"></div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    const modal = $("#dbProductModal");
+    const modalBody = $("#db-modal-body");
+
+    $(".db-quick-view-btn").on("click", function() {
+      const btn = $(this);
+      modalBody.html(`
+        <img src="${btn.data('img')}" alt="${btn.data('name')}">
+        <h2>${btn.data('name')}</h2>
+        <p><strong>Category:</strong> ${btn.data('cat')}</p>
+        <p><strong>Price:</strong> $${btn.data('price')}</p>
+        <p>${btn.data('desc')}</p>
+        <div class="rating-tag">Rating: ${btn.data('rate')} ⭐ (${btn.data('count')} reviews)</div>
+      `);
+      modal.fadeIn(200);
+    });
+
+    $(".close-db-modal, .modal").on("click", function(e) {
+      if (e.target === this) {
+        modal.fadeOut(200);
+      }
+    });
+  });
+</script>
